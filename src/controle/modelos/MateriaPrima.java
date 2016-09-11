@@ -2,18 +2,24 @@ package controle.modelos;
 
 import java.math.BigDecimal;
 
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+
+@Entity("materiasPrimas")
 public class MateriaPrima {
-	private Integer codigo;
+	@Id
+	private ObjectId codigo;
 	private String nome;
 	private Unidade unidade;
 	private BigDecimal quantidade;
 	private BigDecimal preco;
 
-	public Integer getCodigo() {
+	public ObjectId getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(ObjectId codigo) {
 		this.codigo = codigo;
 	}
 
