@@ -7,10 +7,6 @@ public class Principal {
 
 	protected Shell shell;
 
-	/**
-	 * Launch the application.
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		try {
 			Principal window = new Principal();
@@ -20,9 +16,6 @@ public class Principal {
 		}
 	}
 
-	/**
-	 * Open the window.
-	 */
 	public void open() {
 		Display display = Display.getDefault();
 		createContents();

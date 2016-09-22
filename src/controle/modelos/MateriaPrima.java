@@ -6,13 +6,12 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
-@Entity("materiasPrimas")
+@Entity("materiaPrima")
 public class MateriaPrima {
 	@Id
 	private ObjectId codigo;
 	private String nome;
 	private Unidade unidade;
-	private BigDecimal quantidade;
 	private BigDecimal preco;
 
 	public ObjectId getCodigo() {
@@ -29,14 +28,6 @@ public class MateriaPrima {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public BigDecimal getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(BigDecimal quantidade) {
-		this.quantidade = quantidade;
 	}
 
 	public Unidade getUnidade() {
@@ -65,6 +56,7 @@ public class MateriaPrima {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + ((unidade == null) ? 0 : unidade.hashCode());
 		return result;
 	}
 

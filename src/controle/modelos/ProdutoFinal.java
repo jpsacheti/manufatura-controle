@@ -2,18 +2,22 @@ package controle.modelos;
 
 import java.math.BigDecimal;
 
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+@Entity("produtoFinal")
 public class ProdutoFinal {
-	private Integer codigo;
+	@Id
+	private ObjectId codigo;
 	private String nome;
 	private BigDecimal preco;
 	private Unidade unidade;
-	private BigDecimal quantidade;
 
-	public Integer getCodigo() {
+	public ObjectId getCodigo() {
 		return codigo;
 	}
 
-	public void setCodigo(Integer codigo) {
+	public void setCodigo(ObjectId codigo) {
 		this.codigo = codigo;
 	}
 
@@ -33,14 +37,6 @@ public class ProdutoFinal {
 		this.preco = preco;
 	}
 
-	public BigDecimal getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(BigDecimal quantidade) {
-		this.quantidade = quantidade;
-	}
-
 	public Unidade getUnidade() {
 		return unidade;
 	}
@@ -52,4 +48,29 @@ public class ProdutoFinal {
 	public String toString() {
 		return nome;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProdutoFinal other = (ProdutoFinal) obj;
+		if (codigo == null) {
+			if (other.codigo != null)
+				return false;
+		} else if (!codigo.equals(other.codigo))
+			return false;
+		return true;
+	}	
 }

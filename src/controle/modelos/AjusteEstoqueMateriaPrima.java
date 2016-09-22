@@ -1,26 +1,17 @@
 package controle.modelos;
 
 import java.math.BigDecimal;
-import java.util.Objects;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
-@Entity("itemEntrada")
-public class ItemEntrada {
+@Entity("ajusteMateriaPrima")
+public class AjusteEstoqueMateriaPrima {
 	@Id
 	private ObjectId codigo;
 	private MateriaPrima materiaPrima;
 	private BigDecimal quantidade;
-
-	public ItemEntrada() {
-	}
-
-	public ItemEntrada(MateriaPrima materiaPrima, BigDecimal quantidade) {
-		this.quantidade = Objects.requireNonNull(quantidade);
-		this.materiaPrima = Objects.requireNonNull(materiaPrima);
-	}
 
 	public ObjectId getCodigo() {
 		return codigo;
@@ -35,7 +26,7 @@ public class ItemEntrada {
 	}
 
 	public void setMateriaPrima(MateriaPrima materiaPrima) {
-		this.materiaPrima = Objects.requireNonNull(materiaPrima);
+		this.materiaPrima = materiaPrima;
 	}
 
 	public BigDecimal getQuantidade() {
@@ -43,12 +34,7 @@ public class ItemEntrada {
 	}
 
 	public void setQuantidade(BigDecimal quantidade) {
-		this.quantidade = Objects.requireNonNull(quantidade);
-	}
-
-	@Override
-	public String toString() {
-		return quantidade.toString() + " - " + materiaPrima.getNome();
+		this.quantidade = quantidade;
 	}
 
 	@Override
@@ -67,7 +53,7 @@ public class ItemEntrada {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ItemEntrada other = (ItemEntrada) obj;
+		AjusteEstoqueMateriaPrima other = (AjusteEstoqueMateriaPrima) obj;
 		if (codigo == null) {
 			if (other.codigo != null)
 				return false;
@@ -76,4 +62,5 @@ public class ItemEntrada {
 		return true;
 	}
 
+	
 }
