@@ -6,13 +6,16 @@ import java.util.Objects;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Reference;
 
 @Entity("itemSaida")
 public class ItemSaida {
 	@Id
-	public ObjectId codigo;
-	public ProdutoFinal produtoFinal;
-	public BigDecimal quantidade;
+	private ObjectId codigo;
+	private ProdutoFinal produtoFinal;
+	private BigDecimal quantidade;
+	@Reference
+	private Manufatura manufatura; 
 
 	public ItemSaida() {
 	}
@@ -69,6 +72,14 @@ public class ItemSaida {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
+	}
+
+	public Manufatura getManufatura() {
+		return manufatura;
+	}
+
+	public void setManufatura(Manufatura manufatura) {
+		this.manufatura = manufatura;
 	}
 
 }

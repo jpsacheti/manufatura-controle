@@ -59,6 +59,22 @@ public class Manufatura {
 		}
 	}
 	
+	public void removerEntrada(ItemEntrada item){
+		listEntrada.remove(item);
+	}
+	
+	public void removeSaida(ItemSaida item){
+		listSaida.remove(item);
+	}
+	
+	public void removerEntrada(int item){
+		listEntrada.remove(item);
+	}
+	
+	public void removeSaida(int item){
+		listSaida.remove(item);
+	}
+	
 	public void adicionarSaida(ItemSaida item){
 		if(listSaida.contains(item)){
 			listSaida.get(listSaida.indexOf(item)).getQuantidade().add(item.getQuantidade());
