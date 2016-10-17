@@ -1,6 +1,7 @@
 package controle.modelos;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
@@ -12,6 +13,8 @@ public class AjusteEstoqueMateriaPrima {
 	private ObjectId codigo;
 	private MateriaPrima materiaPrima;
 	private BigDecimal quantidade;
+	private LocalDateTime dataHora;
+	private boolean entrada;
 
 	public ObjectId getCodigo() {
 		return codigo;
@@ -37,11 +40,31 @@ public class AjusteEstoqueMateriaPrima {
 		this.quantidade = quantidade;
 	}
 
+	public LocalDateTime getDataHora() {
+		return dataHora;
+	}
+
+	public void setDataHora(LocalDateTime dataHora) {
+		this.dataHora = dataHora;
+	}
+
+	public boolean isEntrada() {
+		return entrada;
+	}
+
+	public void setEntrada(boolean entrada) {
+		this.entrada = entrada;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
+		result = prime * result + ((dataHora == null) ? 0 : dataHora.hashCode());
+		result = prime * result + (entrada ? 1231 : 1237);
+		result = prime * result + ((materiaPrima == null) ? 0 : materiaPrima.hashCode());
+		result = prime * result + ((quantidade == null) ? 0 : quantidade.hashCode());
 		return result;
 	}
 
@@ -59,8 +82,29 @@ public class AjusteEstoqueMateriaPrima {
 				return false;
 		} else if (!codigo.equals(other.codigo))
 			return false;
+		if (dataHora == null) {
+			if (other.dataHora != null)
+				return false;
+		} else if (!dataHora.equals(other.dataHora))
+			return false;
+		if (entrada != other.entrada)
+			return false;
+		if (materiaPrima == null) {
+			if (other.materiaPrima != null)
+				return false;
+		} else if (!materiaPrima.equals(other.materiaPrima))
+			return false;
+		if (quantidade == null) {
+			if (other.quantidade != null)
+				return false;
+		} else if (!quantidade.equals(other.quantidade))
+			return false;
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "AjusteEstoqueMateriaPrima [codigo=" + codigo + ", materiaPrima=" + materiaPrima + ", quantidade=" + quantidade + ", dataHora=" + dataHora + ", entrada=" + entrada + "]";
+	}
 	
 }
