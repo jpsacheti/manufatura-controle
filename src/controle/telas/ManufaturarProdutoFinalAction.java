@@ -69,7 +69,7 @@ public class ManufaturarProdutoFinalAction extends ManufaturarProdutoFinal {
 					manufatura.removerEntrada(index);
 					carregarTabelaMateriaPrima();
 				} else {
-					Uteis.exibirMensagem("Selecione um produto!");
+					Uteis.exibirMensagem(shell, "Selecione um produto!");
 				}
 			}
 		});
@@ -94,7 +94,7 @@ public class ManufaturarProdutoFinalAction extends ManufaturarProdutoFinal {
 					manufatura.removeSaida(index);
 					carregarTabelaProdutoFinal();
 				} else {
-					Uteis.exibirMensagem("Selecione um produto!");
+					Uteis.exibirMensagem(shell, "Selecione um produto!");
 				}
 			}
 		});
@@ -121,7 +121,7 @@ public class ManufaturarProdutoFinalAction extends ManufaturarProdutoFinal {
 
 			criarBean();
 			new ManufaturaDao().cadastrar(manufatura);
-			Uteis.exibirMensagem("Produtos processados com sucesso!");
+			Uteis.exibirMensagem(shell, "Produtos processados com sucesso!");
 
 			limparTela();
 

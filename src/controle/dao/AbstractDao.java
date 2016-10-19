@@ -34,4 +34,8 @@ public abstract class AbstractDao<E> {
 		Query<E> query = getDatastore().createQuery(classe);
 		return query.field(propriedade).containsIgnoreCase(valor).asList();
 	}
+	
+	public List<E> listarTodas() {
+		return getDatastore().createQuery(classe).asList();
+	}
 }

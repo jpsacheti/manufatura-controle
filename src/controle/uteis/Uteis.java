@@ -1,14 +1,27 @@
 package controle.uteis;
 
-import javax.swing.JOptionPane;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.MessageBox;
 
 public class Uteis {
-	public static void mostrarErro(Throwable e){
-		JOptionPane.showMessageDialog(null, e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-		e.printStackTrace();
+	public static void mostrarErro(Control c, Throwable e) {
+		MessageBox msg = new MessageBox(c.getShell());
+		msg.setText("Erro!!");
+		msg.setMessage(e.getMessage());
+		msg.open();
+		System.out.println(e.getMessage());
+
 	}
 
-	public static void exibirMensagem(String mensagem) {
-		JOptionPane.showMessageDialog(null, mensagem, "Mensagem", JOptionPane.INFORMATION_MESSAGE);
+	public static void exibirMensagem(Control c, String Mensagem) {
+		try {
+			MessageBox msg = new MessageBox(c.getShell());
+			msg.setText("Mensagem!");
+			msg.setMessage(Mensagem);
+			msg.open();
+			c.forceFocus();
+		} catch (Exception exe) {
+			System.out.println(exe.getMessage());
+		}
 	}
 }

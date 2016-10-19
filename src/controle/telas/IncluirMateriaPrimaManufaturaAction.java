@@ -6,6 +6,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Shell;
 
+import controle.dao.MateriaPrimaDao;
 import controle.modelos.ItemEntrada;
 import controle.modelos.MateriaPrima;
 import controle.uteis.Interface;
@@ -13,7 +14,7 @@ import controle.uteis.Uteis;
 
 public class IncluirMateriaPrimaManufaturaAction extends IncluirMateriaPrimaManufatura {
 
-	private List<MateriaPrima> produtos;
+	private List<MateriaPrima> materiasPrima;
 	private ItemEntrada item;
 	private boolean confirmou = false;
 
@@ -62,28 +63,21 @@ public class IncluirMateriaPrimaManufaturaAction extends IncluirMateriaPrimaManu
 	private void criarBean() {
 		try {
 			item = new ItemEntrada();
-			MateriaPrima materia = produtos.get(combo.getSelectionIndex());
+			MateriaPrima materia = materiasPrima.get(combo.getSelectionIndex());
 			item.setMateriaPrima(materia);
 			item.setQuantidade(BigDecimalConverter.stringToBigDecimal(text.getText()));
 		} catch (Exception e) {
-			Uteis.mostrarErro(e);
+			Uteis.mostrarErro(shell,e);
 		}
 	}
 
 	private void carregarCombo() {
-		//TODO: fazer
-		/*HibernateUtil.begin();
 		try {
-			produtos = new ProdutoDao().getProdutosMateriaPrimaAtivos();
-			for (Produto p : produtos) {
-				combo.add(p.getNome());
-			}
-			HibernateUtil.commit();
+			materiasPrima = new MateriaPrimaDao().listarTodas();
+			materiasPrima.forEach(mp -> combo.add(mp.getNome()));
 		} catch (Exception e) {
-			HibernateUtil.rollback();
-			KlojaUteis.exibirErro(e, combo);
-			KlojaUteis.gravarLog(e);
-		}*/	
+			Uteis.mostrarErro(shell, e);
+		}
 	}
 
 	private void carregarDados(ItemEntrada item) {
