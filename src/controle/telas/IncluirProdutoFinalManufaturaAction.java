@@ -6,9 +6,11 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Shell;
 
+import controle.dao.ProdutoFinalDao;
 import controle.modelos.ItemSaida;
 import controle.modelos.ProdutoFinal;
 import controle.uteis.Interface;
+import controle.uteis.Uteis;
 
 public class IncluirProdutoFinalManufaturaAction extends IncluirProdutoFinalManufatura {
 
@@ -47,14 +49,13 @@ public class IncluirProdutoFinalManufaturaAction extends IncluirProdutoFinalManu
 	}
 
 	private void carregarCombo() {
-		/*
-		 * HibernateUtil.begin(); try { produtos = new
-		 * ProdutoDao().getTodosProdutosFinaisAtivos(); for (Produto p :
-		 * produtos) { combo.add(p.getNome()); } HibernateUtil.commit(); } catch
-		 * (Exception e) { HibernateUtil.rollback(); KlojaUteis.exibirErro(e,
-		 * combo); KlojaUteis.gravarLog(e); }
-		 */
-
+		try{
+			produtos = new ProdutoFinalDao().listarTodas();
+			produtos.stream().map(ProdutoFinal::getNome).forEach(nome -> combo.add(nome));
+		} catch (Exception e) {
+			Uteis.exibirErro(btnGravar, e);
+		}
+		
 	}
 
 	private void adicionarEventosButton() {

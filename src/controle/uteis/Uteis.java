@@ -4,7 +4,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.MessageBox;
 
 public class Uteis {
-	public static void mostrarErro(Control c, Throwable e) {
+	public static void exibirErro(Control c, Throwable e) {
 		MessageBox msg = new MessageBox(c.getShell());
 		msg.setText("Erro!!");
 		msg.setMessage(e.getMessage());

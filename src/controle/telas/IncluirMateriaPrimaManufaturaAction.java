@@ -67,7 +67,7 @@ public class IncluirMateriaPrimaManufaturaAction extends IncluirMateriaPrimaManu
 			item.setMateriaPrima(materia);
 			item.setQuantidade(BigDecimalConverter.stringToBigDecimal(text.getText()));
 		} catch (Exception e) {
-			Uteis.mostrarErro(shell,e);
+			Uteis.exibirErro(shell,e);
 		}
 	}
 
@@ -76,7 +76,7 @@ public class IncluirMateriaPrimaManufaturaAction extends IncluirMateriaPrimaManu
 			materiasPrima = new MateriaPrimaDao().listarTodas();
 			materiasPrima.forEach(mp -> combo.add(mp.getNome()));
 		} catch (Exception e) {
-			Uteis.mostrarErro(shell, e);
+			Uteis.exibirErro(shell, e);
 		}
 	}
 
