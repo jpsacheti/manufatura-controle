@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.Shell;
 import controle.dao.MateriaPrimaDao;
 import controle.modelos.ItemEntrada;
 import controle.modelos.MateriaPrima;
+import controle.uteis.BigDecimalConverter;
 import controle.uteis.Interface;
 import controle.uteis.Uteis;
 

@@ -14,6 +14,7 @@ import controle.dao.ManufaturaDao;
 import controle.modelos.ItemEntrada;
 import controle.modelos.ItemSaida;
 import controle.modelos.Manufatura;
+import controle.uteis.BigDecimalConverter;
 import controle.uteis.Interface;
 import controle.uteis.Uteis;
 
