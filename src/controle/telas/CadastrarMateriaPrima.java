@@ -13,58 +13,72 @@ public abstract class CadastrarMateriaPrima {
 
 	protected Shell shell;
 	private Shell pai;
-	private Text txtNome;
+	protected Text txtNome;
 	private Group grpDadosDaMatriaprima;
 	private Label lblPreo;
+	protected Spinner spinnerQuantidadeInicial;
+	protected Button btnGravar;
+	protected Button btnCancelar;
+	protected Spinner spinnerPreco;
+	protected Combo comboUnid;
 
 	public CadastrarMateriaPrima(Shell pai) {
 		this.pai = pai;
 		createContents();
 	}
 
-
 	private void createContents() {
 		shell = new Shell(pai, SWT.DIALOG_TRIM);
-		shell.setSize(421, 183);
-		shell.setText("Cadastro de mat�ria prima");
+		shell.setSize(428, 221);
+		shell.setText("Cadastro de matéria prima");
 		shell.setLayout(null);
-		
+
 		grpDadosDaMatriaprima = new Group(shell, SWT.NONE);
-		grpDadosDaMatriaprima.setText("Dados da mat\u00E9ria prima");
-		grpDadosDaMatriaprima.setBounds(10, 12, 397, 112);
-		
+		grpDadosDaMatriaprima.setText("Dados da matéria prima");
+		grpDadosDaMatriaprima.setBounds(10, 12, 397, 139);
+
 		Label lblNome = new Label(grpDadosDaMatriaprima, SWT.NONE);
 		lblNome.setBounds(0, 3, 75, 17);
 		lblNome.setAlignment(SWT.RIGHT);
 		lblNome.setText("Nome");
-		
+
 		txtNome = new Text(grpDadosDaMatriaprima, SWT.BORDER);
 		txtNome.setBounds(81, 0, 293, 22);
-		
+
 		lblPreo = new Label(grpDadosDaMatriaprima, SWT.NONE);
 		lblPreo.setText("Pre\u00E7o");
 		lblPreo.setAlignment(SWT.RIGHT);
 		lblPreo.setBounds(0, 29, 75, 17);
-		
-		Spinner spinnerPreco = new Spinner(grpDadosDaMatriaprima, SWT.BORDER);
+
+		spinnerPreco = new Spinner(grpDadosDaMatriaprima, SWT.BORDER);
 		spinnerPreco.setDigits(2);
 		spinnerPreco.setMaximum(99999999);
 		spinnerPreco.setBounds(81, 26, 128, 22);
-		
+
 		Label lblUnidade = new Label(grpDadosDaMatriaprima, SWT.NONE);
 		lblUnidade.setText("Unidade");
 		lblUnidade.setAlignment(SWT.RIGHT);
 		lblUnidade.setBounds(0, 59, 75, 17);
-		
-		Combo combo = new Combo(grpDadosDaMatriaprima, SWT.NONE);
-		combo.setBounds(81, 54, 293, 22);
-		
-		Button btnGravar = new Button(shell, SWT.NONE);
-		btnGravar.setBounds(233, 130, 82, 27);
+
+		comboUnid = new Combo(grpDadosDaMatriaprima, SWT.NONE);
+		comboUnid.setBounds(81, 54, 293, 22);
+
+		Label lblQUantidade = new Label(grpDadosDaMatriaprima, SWT.NONE);
+		lblQUantidade.setText("Estoque");
+		lblQUantidade.setAlignment(SWT.RIGHT);
+		lblQUantidade.setBounds(0, 94, 75, 17);
+
+		spinnerQuantidadeInicial = new Spinner(grpDadosDaMatriaprima, SWT.BORDER);
+		spinnerQuantidadeInicial.setMaximum(99999999);
+		spinnerQuantidadeInicial.setDigits(2);
+		spinnerQuantidadeInicial.setBounds(81, 91, 128, 22);
+
+		btnGravar = new Button(shell, SWT.NONE);
+		btnGravar.setBounds(242, 157, 82, 27);
 		btnGravar.setText("Gravar");
-		
-		Button btnCancelar = new Button(shell, SWT.NONE);
+
+		btnCancelar = new Button(shell, SWT.NONE);
 		btnCancelar.setText("Cancelar");
-		btnCancelar.setBounds(325, 130, 82, 27);
+		btnCancelar.setBounds(334, 157, 82, 27);
 	}
 }

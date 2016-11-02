@@ -1,7 +1,10 @@
 package controle.uteis;
 
+import java.math.BigDecimal;
+
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Spinner;
 
 public class Uteis {
 	public static void exibirErro(Control c, Throwable e) {
@@ -23,5 +26,15 @@ public class Uteis {
 		} catch (Exception exe) {
 			System.out.println(exe.getMessage());
 		}
+	}
+
+	public static BigDecimal getSpinnerValueAsBigDecimal(Spinner spinnerPreco) {
+		int selecao = spinnerPreco.getSelection();
+		int digitos = spinnerPreco.getDigits();
+		return new BigDecimal(selecao/Math.pow(10, digitos));
+	}
+	
+	public static int getBigDecimalAsSpinnerValue(BigDecimal valor, int digits){
+		return valor.movePointRight(digits).intValue();
 	}
 }

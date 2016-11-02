@@ -1,6 +1,7 @@
 package controle.telas;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
@@ -10,10 +11,12 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 
+import controle.dao.AjusteEstoqueMateriaPrimaDao;
 import controle.dao.ManufaturaDao;
 import controle.modelos.ItemEntrada;
 import controle.modelos.ItemSaida;
 import controle.modelos.Manufatura;
+import controle.uteis.AppException;
 import controle.uteis.BigDecimalConverter;
 import controle.uteis.Interface;
 import controle.uteis.Uteis;
@@ -118,15 +121,18 @@ public class ManufaturarProdutoFinalAction extends ManufaturarProdutoFinal {
 	}
 
 	private void salvar() {
-		if (validarQuantidadeMateriaPrima()) {
+		try {
+			validarQuantidadeMateriaPrima();
 
 			criarBean();
 			new ManufaturaDao().cadastrar(manufatura);
 			Uteis.exibirMensagem(shell, "Produtos processados com sucesso!");
 
 			limparTela();
-
+		} catch (AppException ae) {
+			Uteis.exibirErro(shell, ae);
 		}
+
 	}
 
 	private void criarBean() {
@@ -140,19 +146,21 @@ public class ManufaturarProdutoFinalAction extends ManufaturarProdutoFinal {
 		manufatura.setDate(LocalDate.now());
 	}
 
-	private boolean validarQuantidadeMateriaPrima() {
-		boolean result = true;
-		//TODO: fazer aqui
-		/*for (ItemEntrada iem : manufatura.getListEntrada()) {
-			BigDecimal quantidade = new ProdutoDao().apurarEstoqueDisponivel(iem.getProduto());
-			if (quantidade.compareTo(iem.getQuantidade()) < 0) {
-				Uteis.exibirMensagem(
-						"Não existe quantidade suficiente deste produto: " + iem.getMateriaPrima().getNome());
-				result = false;
-			}
-		}*/
-
-		return result;
+	private void validarQuantidadeMateriaPrima() throws AppException {
+		AjusteEstoqueMateriaPrimaDao dao = new AjusteEstoqueMateriaPrimaDao();
+		/*
+		 * for (ItemEntrada ie : manufatura.getListEntrada()) { BigDecimal
+		 * estoqueAtualMP = dao.apurarQuantidade(ie.getMateriaPrima()); if
+		 * (estoqueAtualMP.compareTo(ie.getQuantidade()) >= 0) {
+		 * 
+		 * } }
+		 */
+		Optional<ItemEntrada> opt = manufatura.getListEntrada().stream()
+				.filter(ie -> dao.apurarQuantidade(ie.getMateriaPrima()).compareTo(ie.getQuantidade()) < 0)
+				.findAny();
+		if (opt.isPresent()) {
+			throw new AppException("Item insuficiente: " + opt.get().getMateriaPrima().getNome());
+		}
 	}
 
 	private void editarMateriaPrima() {
