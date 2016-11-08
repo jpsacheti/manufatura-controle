@@ -46,7 +46,7 @@ public class CadastrarMateriaPrimaAction extends CadastrarMateriaPrima {
 		
 	}
 	private void carregarCombo() {
-		Unidade.getList().forEach(u -> comboUnid.add(u.name()));	
+		Unidade.asList().forEach(u -> comboUnid.add(u.name()));	
 	}
 	
 	private void iniciarTela() {
@@ -95,10 +95,9 @@ public class CadastrarMateriaPrimaAction extends CadastrarMateriaPrima {
 		});
 	}
 
-
 	private void criarBean() {
 		materiaPrima.setNome(txtNome.getText());
-		materiaPrima.setUnidade(Unidade.values()[comboUnid.getSelectionIndex()]);
+		materiaPrima.setUnidade(Unidade.asList().get(comboUnid.getSelectionIndex()));
 		materiaPrima.setPreco(Uteis.getSpinnerValueAsBigDecimal(spinnerPreco));
 	}
 	private void adaptarCombo() {

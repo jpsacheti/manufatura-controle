@@ -24,7 +24,6 @@ import controle.uteis.Uteis;
 public class ManufaturarProdutoFinalAction extends ManufaturarProdutoFinal {
 
 	private Manufatura manufatura;
-	private boolean confirmou;
 
 	public ManufaturarProdutoFinalAction(Shell pai) {
 		super(pai);
@@ -230,10 +229,6 @@ public class ManufaturarProdutoFinalAction extends ManufaturarProdutoFinal {
 			ti.setText(2, BigDecimalConverter.bigDecimalToString(item.getQuantidade(), 4));
 		}
 		tableProdutoFinal.setSelection(tableProdutoFinal.getItemCount() - 1);
-	}
-
-	public boolean isConfirmou() {
-		return confirmou;
 	}
 
 }

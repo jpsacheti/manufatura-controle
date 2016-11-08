@@ -11,9 +11,9 @@ import org.eclipse.swt.widgets.Button;
 
 public abstract class CadastrarProdutoFinal {
 
-	protected Shell shlCadastroDeProduto;
+	protected Shell shell;
 	private Shell pai;
-	private Text txtNome;
+	protected Text txtNome;
 	private Group grpDadosDoProdutoFinal;
 	private Label lblPreo;
 	protected Spinner spinnerPreco;
@@ -28,12 +28,12 @@ public abstract class CadastrarProdutoFinal {
 	}
 
 	private void createContents() {
-		shlCadastroDeProduto = new Shell(pai, SWT.DIALOG_TRIM);
-		shlCadastroDeProduto.setSize(421, 220);
-		shlCadastroDeProduto.setText("Cadastro de produto final");
-		shlCadastroDeProduto.setLayout(null);
+		shell = new Shell(pai, SWT.DIALOG_TRIM);
+		shell.setSize(421, 220);
+		shell.setText("Cadastro de produto final");
+		shell.setLayout(null);
 
-		grpDadosDoProdutoFinal = new Group(shlCadastroDeProduto, SWT.NONE);
+		grpDadosDoProdutoFinal = new Group(shell, SWT.NONE);
 		grpDadosDoProdutoFinal.setText("Dados do produto final");
 		grpDadosDoProdutoFinal.setBounds(10, 12, 397, 138);
 
@@ -73,11 +73,11 @@ public abstract class CadastrarProdutoFinal {
 		spinnerEstoque.setDigits(2);
 		spinnerEstoque.setBounds(81, 88, 128, 22);
 
-		btnGravar = new Button(shlCadastroDeProduto, SWT.NONE);
+		btnGravar = new Button(shell, SWT.NONE);
 		btnGravar.setBounds(235, 156, 82, 27);
 		btnGravar.setText("Gravar");
 
-		btnCancelar = new Button(shlCadastroDeProduto, SWT.NONE);
+		btnCancelar = new Button(shell, SWT.NONE);
 		btnCancelar.setText("Cancelar");
 		btnCancelar.setBounds(327, 156, 82, 27);
 	}

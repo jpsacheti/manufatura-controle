@@ -19,8 +19,9 @@ public class AjusteEstoqueMateriaPrimaDao extends AbstractDao<AjusteEstoqueMater
 		query.field("materiaPrima").equal(materiaPrima);
 		List<AjusteEstoqueMateriaPrima> ajustes = query.asList();
 		BigDecimal adicoes = ajustes.stream().filter(a -> a.isEntrada()).map(a -> a.getQuantidade()).reduce(BigDecimal.ZERO, (a, b) -> a.add(b));
+		BigDecimal producoes = new ItemEntradaDao().getTotalUtilizado(materiaPrima);
 		BigDecimal retiradas = ajustes.stream().filter(a -> !a.isEntrada()).map(a ->a.getQuantidade()).reduce(BigDecimal.ZERO, (a,b)->a.add(b));
-		return adicoes.subtract(retiradas);
+		return adicoes.subtract(producoes).subtract(retiradas);
 	}
 
 }
