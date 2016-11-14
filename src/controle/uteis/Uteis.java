@@ -2,6 +2,7 @@ package controle.uteis;
 
 import java.math.BigDecimal;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Spinner;
@@ -27,6 +28,14 @@ public class Uteis {
 			System.out.println(exe.getMessage());
 		}
 	}
+	
+	public static boolean getConfirmacao(Control control, String mensagem) {
+		MessageBox msg = new MessageBox(control.getShell(), SWT.ICON_QUESTION | SWT.YES | SWT.NO);
+		msg.setMessage(mensagem);
+		msg.setText("Atenção");
+		int resultado = msg.open();
+		return resultado == SWT.YES;
+	}
 
 	public static BigDecimal getSpinnerValueAsBigDecimal(Spinner spinnerPreco) {
 		int selecao = spinnerPreco.getSelection();
@@ -36,5 +45,9 @@ public class Uteis {
 	
 	public static int getBigDecimalAsSpinnerValue(BigDecimal valor, int digits){
 		return valor.movePointRight(digits).intValue();
+	}
+	
+	public static boolean isTeclaEnter(int numcode){
+		return numcode == 13 || numcode == 16777296;
 	}
 }

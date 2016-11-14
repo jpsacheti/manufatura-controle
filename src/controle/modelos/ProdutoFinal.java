@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+
+import controle.dao.AjusteEstoqueProdutoFinalDao;
 @Entity("produtoFinal")
 public class ProdutoFinal {
 	@Id
@@ -47,6 +49,10 @@ public class ProdutoFinal {
 
 	public String toString() {
 		return nome;
+	}
+	
+	public BigDecimal getQuantidade(){
+		return new AjusteEstoqueProdutoFinalDao().apurarQuantidade(this);
 	}
 
 	@Override

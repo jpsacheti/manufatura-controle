@@ -6,6 +6,8 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
+import controle.dao.AjusteEstoqueMateriaPrimaDao;
+
 @Entity("materiaPrima")
 public class MateriaPrima {
 	@Id
@@ -44,6 +46,10 @@ public class MateriaPrima {
 
 	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
+	}
+	
+	public BigDecimal getQuantidade(){
+		return new AjusteEstoqueMateriaPrimaDao().apurarQuantidade(this);
 	}
 
 	@Override
