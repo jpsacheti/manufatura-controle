@@ -24,11 +24,32 @@ import controle.uteis.Uteis;
 public class ManufaturarProdutoFinalAction extends ManufaturarProdutoFinal {
 
 	private Manufatura manufatura;
-
+	
 	public ManufaturarProdutoFinalAction(Shell pai) {
-		super(pai);
+		super(pai);		
 		limparTela();
 		iniciarTela();
+	}
+	
+	public ManufaturarProdutoFinalAction(Shell pai, Manufatura manufatura){
+		super(pai);
+		this.manufatura = manufatura;
+		desativarBotoes();
+		carregarTabelaMateriaPrima();
+		carregarTabelaProdutoFinal();
+		shell.open();
+		Interface.manterJanelaModal(shell);
+	}
+
+	private void desativarBotoes() {
+		btnIncluirMP.setEnabled(false);
+		btnEditarMP.setEnabled(false);
+		btnExcluirMP.setEnabled(false);
+		btnGravar.setEnabled(false);
+		btnIncluirPF.setEnabled(false);
+		btnExcluirPF.setEnabled(false);
+		btnEditarPF.setEnabled(false);
+		
 	}
 
 	private void limparTela() {

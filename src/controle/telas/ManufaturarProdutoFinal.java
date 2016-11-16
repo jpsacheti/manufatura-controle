@@ -16,7 +16,6 @@ public abstract class ManufaturarProdutoFinal {
 	protected Button btnIncluirMP;
 	protected Button btnExcluirMP;
 	protected Button btnEditarMP;
-	protected Button btnReceita;
 	protected TableColumn tblclmnProduto;
 	protected TableColumn tblclmnUnd;
 	protected TableColumn tblclmnQuantidade;
@@ -76,11 +75,6 @@ public abstract class ManufaturarProdutoFinal {
 		btnEditarMP = new Button(grpMateriaPrima, SWT.NONE);
 		btnEditarMP.setBounds(194, 161, 80, 23);
 		btnEditarMP.setText("Editar");
-
-		btnReceita = new Button(grpMateriaPrima, SWT.NONE);
-		btnReceita.setToolTipText("Clique nesse bot\u00E3o para utilizar a mat\u00E9ria-prima de composi\u00E7\u00E3o de um produto industrializado.");
-		btnReceita.setBounds(286, 161, 80, 23);
-		btnReceita.setText("Receita");
 
 		grpProdutofinal = new Group(shell, SWT.NONE);
 		grpProdutofinal.setText("Produto Final");

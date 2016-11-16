@@ -17,7 +17,7 @@ public abstract class ConsultarManufatura{
 	private Shell parent;
 	protected Table table;
 	protected Text txtDataBase;
-	private Text txtDataTeto;
+	protected Text txtDataTeto;
 	protected Button btnPesquisar;
 	protected Button btnCancelar;
 	

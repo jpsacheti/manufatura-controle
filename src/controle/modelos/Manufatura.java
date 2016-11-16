@@ -1,5 +1,6 @@
 package controle.modelos;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,5 +82,13 @@ public class Manufatura {
 		} else{
 			listSaida.add(item);
 		}
+	}
+
+	public BigDecimal getTotalMateriaPrima() {
+		return listEntrada.stream().map(ItemEntrada::getQuantidade).reduce(BigDecimal.ZERO, (a,v)-> a.add(v));
+	}
+	
+	public BigDecimal getTotalProdutoFinal(){
+		return listSaida.stream().map(ItemSaida::getQuantidade).reduce(BigDecimal.ZERO, (a,v)->a.add(v));
 	}
 }
