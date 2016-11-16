@@ -19,6 +19,7 @@ import controle.uteis.Uteis;
 public class CadastrarMateriaPrimaAction extends CadastrarMateriaPrima {
 
 	private boolean edicao;
+	private boolean confirmou = false;
 	private MateriaPrima materiaPrima;
 	
 	
@@ -31,6 +32,7 @@ public class CadastrarMateriaPrimaAction extends CadastrarMateriaPrima {
 	public CadastrarMateriaPrimaAction(Shell pai, MateriaPrima materiaPrima) {
 		super(pai);
 		this.materiaPrima = materiaPrima;
+		this.edicao = true;
 		carregarCombo();
 		popularCampos();
 		iniciarTela();
@@ -87,7 +89,7 @@ public class CadastrarMateriaPrimaAction extends CadastrarMateriaPrima {
 						dao.cadastrar(materiaPrima);
 						criarAjusteMateriaPrima();
 					}
-					
+					confirmou = true;
 					shell.close();
 				}
 			}
@@ -114,6 +116,10 @@ public class CadastrarMateriaPrimaAction extends CadastrarMateriaPrima {
 		ajuste.setMateriaPrima(materiaPrima);
 		ajuste.setQuantidade(Uteis.getSpinnerValueAsBigDecimal(spinnerQuantidadeInicial));
 		new AjusteEstoqueMateriaPrimaDao().cadastrar(ajuste);
+	}
+	
+	public boolean isConfirmou() {
+		return confirmou;
 	}
 
 }

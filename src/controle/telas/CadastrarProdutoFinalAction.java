@@ -20,6 +20,7 @@ public class CadastrarProdutoFinalAction extends CadastrarProdutoFinal{
 
 	private boolean edicao;
 	private ProdutoFinal produto;
+	private boolean confirmou;
 	
 	public CadastrarProdutoFinalAction(Shell pai) {
 		super(pai);
@@ -93,7 +94,7 @@ public class CadastrarProdutoFinalAction extends CadastrarProdutoFinal{
 						dao.cadastrar(produto);
 						criarAjusteProdutoFinal();
 					}
-					
+					confirmou = true;
 					shell.close();
 				}
 			}
@@ -115,6 +116,10 @@ public class CadastrarProdutoFinalAction extends CadastrarProdutoFinal{
 		produto.setNome(txtNome.getText());
 		produto.setUnidade(Unidade.asList().get(comboUnid.getSelectionIndex()));
 		produto.setPreco(Uteis.getSpinnerValueAsBigDecimal(spinnerPreco));
+	}
+
+	public boolean isConfirmou() {
+		return confirmou;
 	}
 
 }

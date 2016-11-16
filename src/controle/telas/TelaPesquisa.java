@@ -35,12 +35,11 @@ public class TelaPesquisa<E> {
 		createContents();
 	}
 
-
 	private void createContents() {
 		shell = new Shell(pai, SWT.DIALOG_TRIM);
 		shell.setSize(683, 508);
 		shell.setText(pesquisaEntidade.getTitulo());
-		
+
 		text = new Text(shell, SWT.BORDER);
 		text.setFont(new Font(null, "Tahoma", 8, SWT.BOLD));
 		text.setBounds(new Rectangle(183, 16, 384, 19));
@@ -53,25 +52,25 @@ public class TelaPesquisa<E> {
 				}
 			}
 		});
-		
+
 		table = new Table(shell, SWT.BORDER | SWT.FULL_SELECTION);
 		table.setSortDirection(SWT.DOWN);
 		table.setLinesVisible(true);
 		table.setHeaderVisible(true);
-		table.setBounds(10, 43, 661, 410);		
-		
+		table.setBounds(10, 43, 661, 410);
+
 		tblclmnNome = new TableColumn(table, SWT.NONE);
 		tblclmnNome.setWidth(433);
 		tblclmnNome.setText("Nome");
-		
+
 		tblclmnUnodade = new TableColumn(table, SWT.CENTER);
 		tblclmnUnodade.setWidth(108);
 		tblclmnUnodade.setText("Unidade");
-		
+
 		tblclmnQuantidade = new TableColumn(table, SWT.CENTER);
 		tblclmnQuantidade.setWidth(100);
 		tblclmnQuantidade.setText("Quantidade");
-		
+
 		table.addKeyListener(new org.eclipse.swt.events.KeyAdapter() {
 			public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
 				if (e.keyCode == 127) {
@@ -86,7 +85,7 @@ public class TelaPesquisa<E> {
 				alterarRegistro();
 			}
 		});
-		
+
 		Button button = new Button(shell, SWT.NONE);
 		button.setText("&Cancelar");
 		button.setBounds(591, 459, 80, 23);
@@ -95,7 +94,7 @@ public class TelaPesquisa<E> {
 				shell.close();
 			}
 		});
-		
+
 		btnpesquisar = new Button(shell, SWT.NONE);
 		btnpesquisar.setText("&Pesquisar");
 		btnpesquisar.setBounds(578, 10, 91, 23);
@@ -104,10 +103,9 @@ public class TelaPesquisa<E> {
 				mostrarDados();
 			}
 		});
-		
-		
+
 	}
-	
+
 	private void mostrarDados() {
 		try {
 			table.removeAll();
@@ -120,7 +118,7 @@ public class TelaPesquisa<E> {
 	}
 
 	private void alterarRegistro() {
-		try{
+		try {
 			if (table.getSelectionIndex() != -1) {
 				shell.setVisible(false);
 				E entidade = list.get(table.getSelectionIndex());
@@ -130,29 +128,26 @@ public class TelaPesquisa<E> {
 				shell.setVisible(true);
 				table.forceFocus();
 			}
-		}catch(Exception e){
+		} catch (Exception e) {
 			Uteis.exibirErro(shell, e);
 		}
-		
-	}
 
+	}
 
 	private void excluirRegistro() {
 		try {
 			if (table.getSelectionIndex() >= 0) {
 				if (Uteis.getConfirmacao(table, "Deseja realmente excluir este registro?")) {
 					E entidade = list.get(table.getSelectionIndex());
-					
-					if (pesquisaEntidade.excluir(entidade)) {
-						table.remove(table.getSelectionIndex());
-						table.setSelection(table.getSelectionIndex());
-					}
+					pesquisaEntidade.excluir(entidade);
+					table.remove(table.getSelectionIndex());
+					table.setSelection(table.getSelectionIndex());
 				}
 			}
 		} catch (Exception e) {
 			Uteis.exibirErro(shell, e);
 		}
-		
+
 	}
 
 }
