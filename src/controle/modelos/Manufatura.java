@@ -14,9 +14,9 @@ import org.mongodb.morphia.annotations.Reference;
 public class Manufatura {
 	@Id
 	private ObjectId codigo;
-	@Reference
+	@Reference(lazy=false)
 	private List<ItemEntrada> listEntrada = new ArrayList<>();
-	@Reference
+	@Reference(lazy=false)
 	private List<ItemSaida> listSaida = new ArrayList<>();
 	private LocalDate date;
 

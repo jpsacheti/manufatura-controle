@@ -14,7 +14,7 @@ public class ItemSaida {
 	private ObjectId codigo;
 	private ProdutoFinal produtoFinal;
 	private BigDecimal quantidade;
-	@Reference
+	@Reference(lazy=false)
 	private Manufatura manufatura; 
 
 	public ItemSaida() {

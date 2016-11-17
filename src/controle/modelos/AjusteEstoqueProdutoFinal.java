@@ -11,7 +11,7 @@ import org.mongodb.morphia.annotations.Reference;
 public class AjusteEstoqueProdutoFinal {
 	@Id
 	private ObjectId codigo;
-	@Reference
+	@Reference(lazy=false)
 	private ProdutoFinal produtoFinal;
 	private BigDecimal quantidade;
 	private boolean entrada;

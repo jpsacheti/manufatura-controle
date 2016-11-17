@@ -17,11 +17,11 @@ public class SelecionarItem<E> {
 
 	private Shell shell;
 	private Shell pai;
-	private Selecionavel<E> selecionavel;
+	private Estocavel<E> selecionavel;
 	private E selecionada;
 	private boolean concluido = false;
 	
-	public SelecionarItem(Shell pai, Selecionavel<E> selecionavel) {
+	public SelecionarItem(Shell pai, Estocavel<E> selecionavel) {
 		this.pai = pai;
 		this.selecionavel = selecionavel;
 		createContents();
