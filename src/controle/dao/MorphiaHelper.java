@@ -7,6 +7,8 @@ import com.mongodb.MongoClient;
 
 import controle.modelos.ItemEntrada;
 import controle.uteis.BigDecimalMorphiaConverter;
+import controle.uteis.LocalDateConverter;
+import controle.uteis.LocalDateTimeConverter;
 
 public class MorphiaHelper {
 	private static final Morphia morphia = new Morphia();
@@ -16,7 +18,9 @@ public class MorphiaHelper {
 		morphia.getMapper().getOptions().setStoreEmpties(true);
 		morphia.getMapper().getOptions().setStoreNulls(true);
 		morphia.getMapper().getConverters().addConverter(BigDecimalMorphiaConverter.class);
-		datastore = morphia.createDatastore(new MongoClient(), "controle-manufatura");
+		morphia.getMapper().getConverters().addConverter(LocalDateTimeConverter.class);
+		morphia.getMapper().getConverters().addConverter(LocalDateConverter.class);
+		datastore = morphia.createDatastore(new MongoClient(), "controlemanufatura");
 		datastore.ensureIndexes();
 	}
 

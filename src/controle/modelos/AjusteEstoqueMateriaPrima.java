@@ -1,7 +1,7 @@
 package controle.modelos;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
@@ -17,7 +17,7 @@ public class AjusteEstoqueMateriaPrima {
 	private MateriaPrima materiaPrima;
 	@Property("quantidade")
 	private BigDecimal quantidade;
-	private LocalDateTime dataHora;
+	private Date dataHora;
 	private boolean entrada;
 
 	public ObjectId getCodigo() {
@@ -44,11 +44,11 @@ public class AjusteEstoqueMateriaPrima {
 		this.quantidade = quantidade;
 	}
 
-	public LocalDateTime getDataHora() {
+	public Date getDataHora() {
 		return dataHora;
 	}
 
-	public void setDataHora(LocalDateTime dataHora) {
+	public void setDataHora(Date dataHora) {
 		this.dataHora = dataHora;
 	}
 

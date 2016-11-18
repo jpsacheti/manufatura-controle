@@ -35,7 +35,7 @@ public class Principal {
 
 	protected void createContents() {
 		shell = new Shell();
-		shell.setSize(410, 300);
+		shell.setSize(410, 245);
 		shell.setText("Controle de manufatura");
 		shell.setLayout(null);
 
@@ -88,17 +88,7 @@ public class Principal {
 
 		Group grpManufatura = new Group(shell, SWT.NONE);
 		grpManufatura.setText("Manufatura");
-		grpManufatura.setBounds(114, 135, 179, 108);
-
-		Button btnConsultar = new Button(grpManufatura, SWT.NONE);
-		btnConsultar.setText("Consultar");
-		btnConsultar.setBounds(47, 51, 83, 29);
-		btnConsultar.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				// TODO: implementar
-			}
-		});
+		grpManufatura.setBounds(114, 135, 179, 66);
 
 		Button btnCadastrarManufatura = new Button(grpManufatura, SWT.NONE);
 		btnCadastrarManufatura.setText("Cadastrar");

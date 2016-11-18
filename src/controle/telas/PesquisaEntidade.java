@@ -10,4 +10,5 @@ public interface PesquisaEntidade<E> {
 	public boolean alterar(Shell shell, E entidade) throws Exception;
 	public void excluir(E entidade) throws Exception;
 	public List<E> pesquisar(String argumento, Table tabela) throws Exception;
+	public void ajustarEstoque(E entidade, Shell pai);
 }

@@ -1,6 +1,6 @@
 package controle.telas;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
@@ -40,7 +40,7 @@ public class CadastrarMateriaPrimaAction extends CadastrarMateriaPrima {
 
 
 	private void popularCampos() {
-		comboUnid.setText(materiaPrima.getUnidade().name());
+		comboUnid.select(Unidade.asList().indexOf(materiaPrima.getUnidade()));
 		adaptarCombo();
 		txtNome.setText(materiaPrima.getNome());
 		spinnerPreco.setSelection(Uteis.getBigDecimalAsSpinnerValue(materiaPrima.getPreco(), spinnerPreco.getDigits()));
@@ -111,7 +111,7 @@ public class CadastrarMateriaPrimaAction extends CadastrarMateriaPrima {
 	}
 	private void criarAjusteMateriaPrima() {
 		AjusteEstoqueMateriaPrima ajuste = new AjusteEstoqueMateriaPrima();
-		ajuste.setDataHora(LocalDateTime.now());
+		ajuste.setDataHora(new Date());
 		ajuste.setEntrada(true);
 		ajuste.setMateriaPrima(materiaPrima);
 		ajuste.setQuantidade(Uteis.getSpinnerValueAsBigDecimal(spinnerQuantidadeInicial));

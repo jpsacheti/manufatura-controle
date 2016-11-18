@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Button;
@@ -36,6 +38,7 @@ public class TelaPesquisa<E> {
 		createContents();
 		shell.open();
 		Interface.manterJanelaModal(shell);
+	
 	}
 
 	private void createContents() {
@@ -106,6 +109,25 @@ public class TelaPesquisa<E> {
 				mostrarDados();
 			}
 		});
+		
+		
+		Button btnAjuste = new Button(shell, SWT.NONE);
+		btnAjuste.setText("&Ajuste");
+		btnAjuste.setBounds(507, 459, 80, 23);
+		btnAjuste.addSelectionListener(new SelectionAdapter(){
+
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				if(table.getSelectionIndex()>=0){
+					E entidade = list.get(table.getSelectionIndex());
+					pesquisaEntidade.ajustarEstoque(entidade, shell);
+					mostrarDados();
+				} else{
+					Uteis.exibirMensagem(shell, "Selecione um registro");
+				}
+			}
+			
+		});
 
 	}
 
@@ -152,5 +174,4 @@ public class TelaPesquisa<E> {
 		}
 
 	}
-
 }

@@ -14,7 +14,7 @@ public class ItemEntradaDao extends AbstractDao<ItemEntrada> {
 
 	public BigDecimal getTotalUtilizado(MateriaPrima materiaPrima) {
 		Query<ItemEntrada> query = MorphiaHelper.getDatastore().createQuery(ItemEntrada.class);
-		return query.field("produtoFinal")
+		return query.field("materiaPrima")
 				    .equal(materiaPrima)
 				    .asList()
 				    .stream().map(ItemEntrada::getQuantidade)

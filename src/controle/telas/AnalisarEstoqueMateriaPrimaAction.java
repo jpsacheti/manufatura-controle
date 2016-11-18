@@ -1,7 +1,7 @@
 package controle.telas;
 
 import java.math.BigDecimal;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +35,7 @@ public class AnalisarEstoqueMateriaPrimaAction extends AnalisarEstoqueMateriaPri
 	}
 
 	private void popularDados() {
-		DateTimeFormatter formatoDataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm");
+		SimpleDateFormat formatoDataHora = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		lblItem.setText(materia.getNome());
 		BigDecimal total = daoAjuste.apurarQuantidade(materia);
 		lblTotal.setText(total.toPlainString());
