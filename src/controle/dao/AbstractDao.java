@@ -5,6 +5,7 @@ import static controle.dao.MorphiaHelper.getDatastore;
 import java.util.List;
 
 import org.bson.types.ObjectId;
+import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
 
 public abstract class AbstractDao<E> {
@@ -14,8 +15,8 @@ public abstract class AbstractDao<E> {
 		this.classe = classe;
 	}
 
-	public void cadastrar(E objeto) {
-		getDatastore().save(objeto);
+	public Key<E> cadastrar(E objeto) {
+		return getDatastore().save(objeto);
 	}
 
 	public void excluir(E objeto) {

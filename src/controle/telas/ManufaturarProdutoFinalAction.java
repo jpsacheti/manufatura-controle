@@ -1,6 +1,9 @@
 package controle.telas;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import org.eclipse.swt.SWT;
@@ -10,9 +13,13 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
+import org.mongodb.morphia.Key;
 
 import controle.dao.AjusteEstoqueMateriaPrimaDao;
+import controle.dao.ItemEntradaDao;
+import controle.dao.ItemSaidaDao;
 import controle.dao.ManufaturaDao;
+import controle.dao.MorphiaHelper;
 import controle.modelos.ItemEntrada;
 import controle.modelos.ItemSaida;
 import controle.modelos.Manufatura;
@@ -20,6 +27,9 @@ import controle.uteis.AppException;
 import controle.uteis.BigDecimalConverter;
 import controle.uteis.Interface;
 import controle.uteis.Uteis;
+
+
+
 
 public class ManufaturarProdutoFinalAction extends ManufaturarProdutoFinal {
 
@@ -145,7 +155,7 @@ public class ManufaturarProdutoFinalAction extends ManufaturarProdutoFinal {
 			validarQuantidadeMateriaPrima();
 
 			criarBean();
-			new ManufaturaDao().cadastrar(manufatura);
+			processarDados();
 			Uteis.exibirMensagem(shell, "Produtos processados com sucesso!");
 
 			limparTela();
@@ -155,14 +165,27 @@ public class ManufaturarProdutoFinalAction extends ManufaturarProdutoFinal {
 
 	}
 
-	private void criarBean() {
-		for (ItemEntrada iem : manufatura.getListEntrada()) {
-			iem.setManufatura(manufatura);
-		}
-		for (ItemSaida ism : manufatura.getListSaida()) {
-			ism.setManufatura(manufatura);
-		}
+	private void processarDados() {
+		List<ItemEntrada> entrada = new ArrayList<ItemEntrada>();
+		List<ItemSaida> saida = new ArrayList<ItemSaida>();
+		Collections.copy(entrada, manufatura.getListEntrada());
+		Collections.copy(saida, manufatura.getListSaida());
+		Key<Manufatura> key = new ManufaturaDao().cadastrar(manufatura);
+		manufatura = MorphiaHelper.getDatastore().getByKey(Manufatura.class, key);
+		ItemEntradaDao itemEntradaDao = new ItemEntradaDao();
+		ItemSaidaDao itemSaidaDao = new ItemSaidaDao();
+		entrada.forEach(ie ->{
+			ie.setManufatura(manufatura);
+			itemEntradaDao.cadastrar(ie);
+		});
+		saida.forEach(is ->{
+			is.setManufatura(manufatura);
+			itemSaidaDao.cadastrar(is);
+		});
+		
+	}
 
+	private void criarBean() {
 		manufatura.setDate(LocalDate.now());
 	}
 

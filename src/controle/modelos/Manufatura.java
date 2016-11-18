@@ -8,15 +8,20 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Reference;
+import org.mongodb.morphia.annotations.PostLoad;
+import org.mongodb.morphia.annotations.Transient;
+
+import controle.dao.ItemEntradaDao;
+import controle.dao.ItemSaidaDao;
+
 
 @Entity("manufatura")
 public class Manufatura {
 	@Id
 	private ObjectId codigo;
-	@Reference(lazy=false)
+	@Transient
 	private List<ItemEntrada> listEntrada = new ArrayList<>();
-	@Reference(lazy=false)
+	@Transient
 	private List<ItemSaida> listSaida = new ArrayList<>();
 	private LocalDate date;
 
@@ -51,44 +56,50 @@ public class Manufatura {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-	
-	public void adicionarEntrada(ItemEntrada item){
-		if(listEntrada.contains(item)){
+
+	public void adicionarEntrada(ItemEntrada item) {
+		if (listEntrada.contains(item)) {
 			listEntrada.get(listEntrada.indexOf(item)).getQuantidade().add(item.getQuantidade());
-		} else{
+		} else {
 			listEntrada.add(item);
 		}
 	}
-	
-	public void removerEntrada(ItemEntrada item){
+
+	public void removerEntrada(ItemEntrada item) {
 		listEntrada.remove(item);
 	}
-	
-	public void removeSaida(ItemSaida item){
+
+	public void removeSaida(ItemSaida item) {
 		listSaida.remove(item);
 	}
-	
-	public void removerEntrada(int item){
+
+	public void removerEntrada(int item) {
 		listEntrada.remove(item);
 	}
-	
-	public void removeSaida(int item){
+
+	public void removeSaida(int item) {
 		listSaida.remove(item);
 	}
-	
-	public void adicionarSaida(ItemSaida item){
-		if(listSaida.contains(item)){
+
+	public void adicionarSaida(ItemSaida item) {
+		if (listSaida.contains(item)) {
 			listSaida.get(listSaida.indexOf(item)).getQuantidade().add(item.getQuantidade());
-		} else{
+		} else {
 			listSaida.add(item);
 		}
 	}
 
 	public BigDecimal getTotalMateriaPrima() {
-		return listEntrada.stream().map(ItemEntrada::getQuantidade).reduce(BigDecimal.ZERO, (a,v)-> a.add(v));
+		return listEntrada.stream().map(ItemEntrada::getQuantidade).reduce(BigDecimal.ZERO, (a, v) -> a.add(v));
 	}
-	
-	public BigDecimal getTotalProdutoFinal(){
-		return listSaida.stream().map(ItemSaida::getQuantidade).reduce(BigDecimal.ZERO, (a,v)->a.add(v));
+
+	public BigDecimal getTotalProdutoFinal() {
+		return listSaida.stream().map(ItemSaida::getQuantidade).reduce(BigDecimal.ZERO, (a, v) -> a.add(v));
+	}
+
+	@PostLoad
+	public void postLoad(Manufatura manufatura) {
+		listEntrada = new ItemEntradaDao().getItensManufatura(this);
+		listSaida = new ItemSaidaDao().getItensManufatura(this);
 	}
 }
