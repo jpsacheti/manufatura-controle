@@ -1,5 +1,6 @@
 package controle.telas;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.eclipse.swt.events.SelectionAdapter;
@@ -63,7 +64,11 @@ public class IncluirProdutoFinalManufaturaAction extends IncluirProdutoFinalManu
 		btnGravar.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				if (Interface.verificarPreenchimentoCampos(shell)) {
-					criarBean();
+					try {
+						criarBean();
+					} catch (ParseException e1) {
+						Uteis.exibirErro(shell, e1);
+					}
 					confirmou = true;
 					shell.close();
 				}
@@ -80,7 +85,7 @@ public class IncluirProdutoFinalManufaturaAction extends IncluirProdutoFinalManu
 
 	}
 
-	private void criarBean() {
+	private void criarBean() throws ParseException{
 		item = new ItemSaida();
 		ProdutoFinal produto = produtos.get(combo.getSelectionIndex());
 		item.setProdutoFinal(produto);

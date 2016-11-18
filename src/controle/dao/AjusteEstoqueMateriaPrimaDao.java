@@ -24,4 +24,10 @@ public class AjusteEstoqueMateriaPrimaDao extends AbstractDao<AjusteEstoqueMater
 		return adicoes.subtract(producoes).subtract(retiradas);
 	}
 
+	public List<AjusteEstoqueMateriaPrima> pesquisar(MateriaPrima materia) {
+		Query<AjusteEstoqueMateriaPrima> query = MorphiaHelper.getDatastore().createQuery(AjusteEstoqueMateriaPrima.class);
+		query.field("materiaPrima").equal(materia);
+		return query.asList();
+	}
+
 }

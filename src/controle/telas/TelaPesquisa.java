@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Text;
 
+import controle.uteis.Interface;
 import controle.uteis.Uteis;
 
 public class TelaPesquisa<E> {
@@ -33,6 +34,8 @@ public class TelaPesquisa<E> {
 		this.pai = pai;
 		this.pesquisaEntidade = pesquisaEntidade;
 		createContents();
+		shell.open();
+		Interface.manterJanelaModal(shell);
 	}
 
 	private void createContents() {

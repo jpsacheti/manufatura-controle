@@ -6,6 +6,7 @@ import java.util.Objects;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Property;
 import org.mongodb.morphia.annotations.Reference;
 
 @Entity("itemSaida")
@@ -13,6 +14,7 @@ public class ItemSaida {
 	@Id
 	private ObjectId codigo;
 	private ProdutoFinal produtoFinal;
+	@Property("quantidade")
 	private BigDecimal quantidade;
 	@Reference(lazy=false)
 	private Manufatura manufatura; 

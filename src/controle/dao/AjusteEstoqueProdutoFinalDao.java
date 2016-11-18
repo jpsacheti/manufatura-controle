@@ -23,4 +23,10 @@ public class AjusteEstoqueProdutoFinalDao extends AbstractDao<AjusteEstoqueProdu
 		BigDecimal produzido = new ItemSaidaDao().getTotalUtilizado(produtoFinal);
 		return adicoes.add(produzido).subtract(retiradas);
 	}
+
+	public List<AjusteEstoqueProdutoFinal> pesquisar(ProdutoFinal produto) {
+		Query<AjusteEstoqueProdutoFinal> query = MorphiaHelper.getDatastore().createQuery(AjusteEstoqueProdutoFinal.class);
+		query.field("produtoFinal").equal(produto);
+		return query.asList();
+	}
 }

@@ -6,6 +6,7 @@ import org.mongodb.morphia.Morphia;
 import com.mongodb.MongoClient;
 
 import controle.modelos.ItemEntrada;
+import controle.uteis.BigDecimalMorphiaConverter;
 
 public class MorphiaHelper {
 	private static final Morphia morphia = new Morphia();
@@ -14,6 +15,7 @@ public class MorphiaHelper {
 		morphia.mapPackageFromClass(ItemEntrada.class);
 		morphia.getMapper().getOptions().setStoreEmpties(true);
 		morphia.getMapper().getOptions().setStoreNulls(true);
+		morphia.getMapper().getConverters().addConverter(BigDecimalMorphiaConverter.class);
 		datastore = morphia.createDatastore(new MongoClient(), "controle-manufatura");
 		datastore.ensureIndexes();
 	}

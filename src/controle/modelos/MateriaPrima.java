@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Property;
 
 import controle.dao.AjusteEstoqueMateriaPrimaDao;
 
@@ -14,6 +15,7 @@ public class MateriaPrima {
 	private ObjectId codigo;
 	private String nome;
 	private Unidade unidade;
+	@Property("preco")
 	private BigDecimal preco;
 
 	public ObjectId getCodigo() {

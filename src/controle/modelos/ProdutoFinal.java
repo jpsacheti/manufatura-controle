@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Property;
 
 import controle.dao.AjusteEstoqueProdutoFinalDao;
 @Entity("produtoFinal")
@@ -12,6 +13,7 @@ public class ProdutoFinal {
 	@Id
 	private ObjectId codigo;
 	private String nome;
+	@Property("preco")
 	private BigDecimal preco;
 	private Unidade unidade;
 

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Property;
 import org.mongodb.morphia.annotations.Reference;
 
 @Entity("ajusteMateriaPrima")
@@ -14,6 +15,7 @@ public class AjusteEstoqueMateriaPrima {
 	private ObjectId codigo;
 	@Reference(lazy=false)
 	private MateriaPrima materiaPrima;
+	@Property("quantidade")
 	private BigDecimal quantidade;
 	private LocalDateTime dataHora;
 	private boolean entrada;

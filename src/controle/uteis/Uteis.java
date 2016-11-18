@@ -9,12 +9,11 @@ import org.eclipse.swt.widgets.Spinner;
 
 public class Uteis {
 	public static void exibirErro(Control c, Throwable e) {
+		e.printStackTrace();
 		MessageBox msg = new MessageBox(c.getShell());
 		msg.setText("Erro!!");
 		msg.setMessage(e.getMessage());
 		msg.open();
-		System.out.println(e.getMessage());
-
 	}
 
 	public static void exibirMensagem(Control c, String Mensagem) {
