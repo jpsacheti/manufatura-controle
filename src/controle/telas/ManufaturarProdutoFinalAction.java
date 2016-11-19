@@ -1,9 +1,8 @@
 package controle.telas;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Optional;
 
 import org.eclipse.swt.SWT;
@@ -13,13 +12,12 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
-import org.mongodb.morphia.Key;
 
 import controle.dao.AjusteEstoqueMateriaPrimaDao;
-import controle.dao.ItemEntradaDao;
-import controle.dao.ItemSaidaDao;
+import controle.dao.AjusteEstoqueProdutoFinalDao;
 import controle.dao.ManufaturaDao;
-import controle.dao.MorphiaHelper;
+import controle.modelos.AjusteEstoqueMateriaPrima;
+import controle.modelos.AjusteEstoqueProdutoFinal;
 import controle.modelos.ItemEntrada;
 import controle.modelos.ItemSaida;
 import controle.modelos.Manufatura;
@@ -27,8 +25,6 @@ import controle.uteis.AppException;
 import controle.uteis.BigDecimalConverter;
 import controle.uteis.Interface;
 import controle.uteis.Uteis;
-
-
 
 
 public class ManufaturarProdutoFinalAction extends ManufaturarProdutoFinal {
@@ -153,9 +149,10 @@ public class ManufaturarProdutoFinalAction extends ManufaturarProdutoFinal {
 	private void salvar() {
 		try {
 			validarQuantidadeMateriaPrima();
-
-			criarBean();
-			processarDados();
+			manufatura.setDate(LocalDate.now());
+			new ManufaturaDao().cadastrar(manufatura);
+			processarAjusteMateriaPrima();
+			processarAjusteProdutoFinal();
 			Uteis.exibirMensagem(shell, "Produtos processados com sucesso!");
 
 			limparTela();
@@ -165,28 +162,30 @@ public class ManufaturarProdutoFinalAction extends ManufaturarProdutoFinal {
 
 	}
 
-	private void processarDados() {
-		List<ItemEntrada> entrada = new ArrayList<ItemEntrada>();
-		List<ItemSaida> saida = new ArrayList<ItemSaida>();
-		Collections.copy(entrada, manufatura.getListEntrada());
-		Collections.copy(saida, manufatura.getListSaida());
-		Key<Manufatura> key = new ManufaturaDao().cadastrar(manufatura);
-		manufatura = MorphiaHelper.getDatastore().getByKey(Manufatura.class, key);
-		ItemEntradaDao itemEntradaDao = new ItemEntradaDao();
-		ItemSaidaDao itemSaidaDao = new ItemSaidaDao();
-		entrada.forEach(ie ->{
-			ie.setManufatura(manufatura);
-			itemEntradaDao.cadastrar(ie);
-		});
-		saida.forEach(is ->{
-			is.setManufatura(manufatura);
-			itemSaidaDao.cadastrar(is);
+	private void processarAjusteProdutoFinal() {
+		manufatura.getListSaida().forEach(is ->{
+			AjusteEstoqueProdutoFinal ae = new AjusteEstoqueProdutoFinal();
+			ae.setProdutoFinal(is.getProdutoFinal());
+			ae.setDataHora(LocalDateTime.now());
+			ae.setEntrada(true);
+			ae.setQuantidade(is.getQuantidade());
+			new AjusteEstoqueProdutoFinalDao().cadastrar(ae);
 		});
 		
 	}
 
-	private void criarBean() {
-		manufatura.setDate(LocalDate.now());
+	private void processarAjusteMateriaPrima() {
+		manufatura.getListEntrada().forEach(ie ->{
+			AjusteEstoqueMateriaPrima ae = new AjusteEstoqueMateriaPrima();
+			ae.setMateriaPrima(ie.getMateriaPrima());
+			ae.setDataHora(new Date());
+			ae.setEntrada(false);
+			ae.setQuantidade(ie.getQuantidade());
+			new AjusteEstoqueMateriaPrimaDao().cadastrar(ae);
+		});
+		
+		
+		
 	}
 
 	private void validarQuantidadeMateriaPrima() throws AppException {

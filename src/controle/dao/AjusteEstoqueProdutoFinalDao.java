@@ -20,8 +20,10 @@ public class AjusteEstoqueProdutoFinalDao extends AbstractDao<AjusteEstoqueProdu
 		List<AjusteEstoqueProdutoFinal> ajustes = query.asList();
 		BigDecimal adicoes = ajustes.stream().filter(a -> a.isEntrada()).map(a -> a.getQuantidade()).reduce(BigDecimal.ZERO, (a, b) -> a.add(b));
 		BigDecimal retiradas = ajustes.stream().filter(a -> !a.isEntrada()).map(a ->a.getQuantidade()).reduce(BigDecimal.ZERO, (a,b)->a.add(b));
-		BigDecimal produzido = new ItemSaidaDao().getTotalUtilizado(produtoFinal);
-		return adicoes.add(produzido).subtract(retiradas);
+		//BigDecimal produzido = new ManufaturaDao().getTotalUtilizado(produtoFinal);
+		return adicoes
+				//.add(produzido)
+				.subtract(retiradas);
 	}
 
 	public List<AjusteEstoqueProdutoFinal> pesquisar(ProdutoFinal produto) {

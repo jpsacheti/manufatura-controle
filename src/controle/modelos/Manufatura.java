@@ -8,20 +8,13 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.PostLoad;
-import org.mongodb.morphia.annotations.Transient;
-
-import controle.dao.ItemEntradaDao;
-import controle.dao.ItemSaidaDao;
 
 
 @Entity("manufatura")
 public class Manufatura {
 	@Id
 	private ObjectId codigo;
-	@Transient
 	private List<ItemEntrada> listEntrada = new ArrayList<>();
-	@Transient
 	private List<ItemSaida> listSaida = new ArrayList<>();
 	private LocalDate date;
 
@@ -95,11 +88,5 @@ public class Manufatura {
 
 	public BigDecimal getTotalProdutoFinal() {
 		return listSaida.stream().map(ItemSaida::getQuantidade).reduce(BigDecimal.ZERO, (a, v) -> a.add(v));
-	}
-
-	@PostLoad
-	public void postLoad(Manufatura manufatura) {
-		listEntrada = new ItemEntradaDao().getItensManufatura(this);
-		listSaida = new ItemSaidaDao().getItensManufatura(this);
 	}
 }

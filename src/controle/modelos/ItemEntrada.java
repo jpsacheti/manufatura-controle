@@ -7,7 +7,6 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Property;
-import org.mongodb.morphia.annotations.Reference;
 
 @Entity("itemEntrada")
 public class ItemEntrada {
@@ -16,8 +15,6 @@ public class ItemEntrada {
 	private MateriaPrima materiaPrima;
 	@Property("quantidade")
 	private BigDecimal quantidade;
-	@Reference(lazy=false)
-	private Manufatura manufatura;
 
 	public ItemEntrada() {
 	}
@@ -79,13 +76,5 @@ public class ItemEntrada {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}
-
-	public Manufatura getManufatura() {
-		return manufatura;
-	}
-
-	public void setManufatura(Manufatura manufatura) {
-		this.manufatura = manufatura;
 	}
 }

@@ -14,7 +14,7 @@ public class MateriaEstocavel implements Estocavel<MateriaPrima> {
 	
 	@Override
 	public void popularCombo(Combo combo) {
-		list.forEach(m -> m.getNome());
+		list.forEach(m -> combo.add(m.getNome()));
 	}
 
 	@Override

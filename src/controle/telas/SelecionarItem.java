@@ -25,6 +25,7 @@ public class SelecionarItem<E> {
 		this.pai = pai;
 		this.selecionavel = selecionavel;
 		createContents();
+		shell.open();
 		Interface.manterJanelaModal(shell);
 	}
 
@@ -33,7 +34,7 @@ public class SelecionarItem<E> {
 		shell.setSize(360, 138);
 		shell.setText("Selecione um item");
 		
-		Combo combo = new Combo(shell, SWT.NONE);
+		Combo combo = new Combo(shell, SWT.READ_ONLY);
 		combo.setBounds(8, 31, 339, 27);
 		selecionavel.popularCombo(combo);
 		
@@ -59,6 +60,7 @@ public class SelecionarItem<E> {
 		btnCancelar.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				shell.close();
 			}
 		});
 	}
